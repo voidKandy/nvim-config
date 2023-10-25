@@ -1,0 +1,6 @@
+require("voidkandy.options")
+-- require("lsp")
+require("voidkandy.keymaps")
+require("voidkandy.plugins")
+require("voidkandy.colorscheme")
+ -- require("treesitter")
