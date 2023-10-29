@@ -13,9 +13,6 @@ end
 local packer_bootstrap = ensure_packer()
 
 
--- Reload configurations if we modify plugins.lua
--- Hint
---     <afile> - replaced with the filename of the buffer being manipulated
 vim.cmd([[
   augroup packer_user_config
     autocmd!
@@ -24,44 +21,47 @@ vim.cmd([[
 ]])
 
 
--- Install plugins here - `use ...`
--- Packer.nvim hints
---     after = string or list,           -- Specifies plugins to load before this plugin. See "sequencing" below
---     config = string or function,      -- Specifies code to run after this plugin is loaded
---     requires = string or list,        -- Specifies plugin dependencies. See "dependencies".
---     ft = string or list,              -- Specifies filetypes which load this plugin.
---     run = string, function, or table, -- Specify operations to be run after successful installs/updates of a plugin
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    -- Colorscheme
     use { 'srcery-colors/srcery-vim', as = 'srcery' }
-    -- Stuff I like
+
     use 'mbbill/undotree'
-    use {
-        'numToStr/Comment.nvim',
+
+    use { "terrortylor/nvim-comment",
+
         config = function()
-            require('Comment').setup({
-                toggler = {
-                    line = "<leader>/",
-                    block = "<leader>?",
-                }
+            require('nvim_comment').setup({
+                -- Linters prefer comment and line to have a space in between markers
+                marker_padding = true,
+                -- should comment out empty or whitespace only lines
+                comment_empty = true,
+                -- trim empty comment whitespace
+                comment_empty_trim_whitespace = true,
+                -- Should key mappings be created
+                create_mappings = true,
+                -- Normal mode mapping left hand side
+                line_mapping = "gcc",
+                -- Visual/Operator mapping left hand side
+                operator_mapping = "gc",
+                -- text object mapping, comment chunk,,
+                hook = nil
             })
         end
     }
 
-    -- HTML stuff
-    use { "Jezda1337/nvim-html-css",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-lua/plenary.nvim"
-        },
-        config = function()
-            require("html-css"):setup()
-        end
-    }
+    use 'ThePrimeagen/harpoon'
 
-    -- Autoclose brackets and such
+    -- use { "Jezda1337/nvim-html-css",
+    --     dependencies = {
+    --         "nvim-treesitter/nvim-treesitter",
+    --         "nvim-lua/plenary.nvim"
+    --     },
+    --     config = function()
+    --         require("html-css"):setup()
+    --     end
+    -- }
+
     use {
         'm4xshen/autoclose.nvim',
         require("autoclose").setup({
@@ -84,7 +84,10 @@ return require('packer').startup(function(use)
     }
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        requires = { { 'nvim-lua/plenary.nvim' } },
+        require('telescope').setup {
+            file_ignore_patterns = { "*/netrw/*" }
+        }
     }
 
     use({
