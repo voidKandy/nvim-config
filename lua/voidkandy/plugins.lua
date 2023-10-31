@@ -24,7 +24,18 @@ vim.cmd([[
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    use { 'srcery-colors/srcery-vim', as = 'srcery' }
+    use { 'srcery-colors/srcery-vim', as = 'srcery', }
+
+    use 'vim-airline/vim-airline'
+    use { 'vim-airline/vim-airline-themes',
+        config = function()
+            vim.cmd("AirlineTheme base16_gruvbox_dark_soft")
+            -- base16_gruvbox_dark_soft
+            -- dues
+            -- more themes @ https://github.com/vim-airline/vim-airline-themes/tree/master/autoload/airline/themes
+        end,
+        after = "vim-airline"
+    }
 
     use 'mbbill/undotree'
 
