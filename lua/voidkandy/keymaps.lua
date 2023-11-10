@@ -11,7 +11,7 @@ vim.g.mapleader = " "
 -----------------
 
 -- netrw
-vim.keymap.set('n', '<Leader>e', ':E <CR>', opts)
+-- vim.keymap.set('n', '<Leader>e', ':E <CR>', opts)
 
 -- undotree
 vim.keymap.set('n', '<Leader>u', vim.cmd.UndotreeToggle)

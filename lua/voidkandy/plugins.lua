@@ -26,17 +26,27 @@ return require('packer').startup(function(use)
 
     use { 'srcery-colors/srcery-vim', as = 'srcery', }
 
+    -- :TransparentEnable
+    -- :TransparentDisable
+    -- :TransparentToggle
+    use 'xiyaowong/transparent.nvim'
+
     use 'vim-airline/vim-airline'
     use { 'vim-airline/vim-airline-themes',
         config = function()
             vim.cmd("AirlineTheme base16_gruvbox_dark_soft")
-            -- base16_gruvbox_dark_soft
             -- dues
             -- more themes @ https://github.com/vim-airline/vim-airline-themes/tree/master/autoload/airline/themes
         end,
         after = "vim-airline"
     }
 
+    use({
+        "stevearc/oil.nvim",
+        config = function()
+            require("oil").setup()
+        end,
+    })
     use 'mbbill/undotree'
 
     use { "terrortylor/nvim-comment",
@@ -63,16 +73,6 @@ return require('packer').startup(function(use)
 
     use 'ThePrimeagen/harpoon'
 
-    -- use { "Jezda1337/nvim-html-css",
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --         "nvim-lua/plenary.nvim"
-    --     },
-    --     config = function()
-    --         require("html-css"):setup()
-    --     end
-    -- }
-
     use {
         'm4xshen/autoclose.nvim',
         require("autoclose").setup({
@@ -93,6 +93,7 @@ return require('packer').startup(function(use)
             ts_update()
         end,
     }
+
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
         requires = { { 'nvim-lua/plenary.nvim' } },
