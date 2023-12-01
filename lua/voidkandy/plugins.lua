@@ -30,7 +30,6 @@ return require('packer').startup(function(use)
     -- :TransparentDisable
     -- :TransparentToggle
     use 'xiyaowong/transparent.nvim'
-
     use 'vim-airline/vim-airline'
     use { 'vim-airline/vim-airline-themes',
         config = function()
@@ -94,6 +93,7 @@ return require('packer').startup(function(use)
         end,
     }
 
+
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
         requires = { { 'nvim-lua/plenary.nvim' } },
@@ -130,17 +130,35 @@ return require('packer').startup(function(use)
         after = "nvim-treesitter"
     })
 
+    use { 'folke/neodev.nvim' }
+
     -- LSP stuff
-    use { 'williamboman/mason.nvim' }
-    use { 'williamboman/mason-lspconfig.nvim' }
-    use { 'neovim/nvim-lspconfig' }
-    use { 'hrsh7th/nvim-cmp', config = [[require('voidkandy.config.nvim-cmp')]] }
-    use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
-    use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }  -- buffer auto-completion
-    use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }    -- path auto-completion
-    use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' } -- cmdline auto-completion
-    use 'L3MON4D3/LuaSnip'
-    use 'saadparwaiz1/cmp_luasnip'
+    -- use { 'williamboman/mason.nvim' }
+    -- use { 'williamboman/mason-lspconfig.nvim' }
+    -- use { 'neovim/nvim-lspconfig' }
+    -- use { 'hrsh7th/nvim-cmp', config = [[require('voidkandy.config.nvim-cmp')]] }
+    -- use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
+    -- use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }  -- buffer auto-completion
+    -- use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }    -- path auto-completion
+    -- use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' } -- cmdline auto-completion
+    -- use 'L3MON4D3/LuaSnip'
+    -- use 'saadparwaiz1/cmp_luasnip'
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v3.x',
+        requires = {
+            --- Uncomment these if you want to manage LSP servers from neovim
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
+
+            -- LSP Support
+            { 'neovim/nvim-lspconfig' },
+            -- Autocompletion
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'L3MON4D3/LuaSnip' },
+        }
+    }
 
 
 

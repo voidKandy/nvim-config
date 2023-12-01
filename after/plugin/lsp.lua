@@ -1,3 +1,7 @@
+require("neodev").setup({
+    -- add any options here, or leave empty to use the default settings
+})
+
 require('mason').setup({
     ui = {
         icons = {
@@ -11,6 +15,41 @@ require('mason').setup({
 require('mason-lspconfig').setup({
     -- A list of servers to automatically install if they're not already installed
     ensure_installed = { 'pylsp', 'gopls', 'lua_ls', 'rust_analyzer', 'tsserver', 'cssls' },
+})
+
+
+local cmp = require('cmp')
+local lsp_zero = require('lsp-zero')
+
+cmp.setup({
+    sources = {
+        { name = 'nvim_lsp' },
+    },
+    mapping = {
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
+        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = 'select' }),
+        ['<C-p>'] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_prev_item({ behavior = 'insert' })
+            else
+                cmp.complete()
+            end
+        end),
+        ['<C-n>'] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_next_item({ behavior = 'insert' })
+            else
+                cmp.complete()
+            end
+        end),
+    },
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
 })
 
 
@@ -52,32 +91,22 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<Leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    vim.keymap.set('n', '<Leader>gr', '<cmd>Telescope lsp_references<cr>', { buffer = bufnr })
 end
 
-lspconfig.pylsp.setup({
-    on_attach = on_attach,
+lsp_zero.on_attach(on_attach)
+
+
+lsp_zero.new_client({
+    name = '_hslsp',
+    cmd = { '_hslsp' },
+    filetypes = { 'html, _hs' },
+    root_dir = function()
+        return lsp_zero.dir.find_first({ 'markerfile.txt' })
+    end
 })
 
-lspconfig.gopls.setup({
-    on_attach = on_attach,
-})
 
-lspconfig.html.setup({
-    on_attach = on_attach,
-})
-
-lspconfig.lua_ls.setup({
-    on_attach = on_attach,
-})
-
-lspconfig.rust_analyzer.setup({
-    on_attach = on_attach,
-})
-
-lspconfig.tsserver.setup({
-    on_attach = on_attach,
-})
-
-lspconfig.cssls.setup({
-    on_attach = on_attach,
+lsp_zero.setup_servers({ 'tsserver', 'rust_analyzer', "cssls", "lua_ls", "html", "htmx", "pylsp", "svelte", "gopls",
+    "_hslsp"
 })
