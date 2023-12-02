@@ -98,15 +98,28 @@ lsp_zero.on_attach(on_attach)
 
 
 lsp_zero.new_client({
-    name = '_hslsp',
-    cmd = { '_hslsp' },
-    filetypes = { 'html, _hs' },
+    name = 'espx-copilot',
+    autostart = 'true',
+    cmd = { 'espx-copilot' },
+    filetypes = { 'html' },
     root_dir = function()
         return lsp_zero.dir.find_first({ 'markerfile.txt' })
     end
 })
 
 
-lsp_zero.setup_servers({ 'tsserver', 'rust_analyzer', "cssls", "lua_ls", "html", "htmx", "pylsp", "svelte", "gopls",
-    "_hslsp"
+lsp_zero.setup_servers({ 'tsserver', 'rust_analyzer', "cssls", "lua_ls", "html", "pylsp", "svelte", "gopls",
+    "espx-copilot"
+    -- "htmx",
+    -- "_hslsp"
 })
+
+
+
+-- vim.lsp.start({
+--     name = '_hslsp',
+--     autostart = 'true',
+--     cmd = { '_hslsp' },
+--     filetypes = { 'html, _hs' },
+--     root_dir = vim.fs.dirname(vim.fs.find({ 'marketfile.txt' }, { upward = true })[1]),
+-- })
