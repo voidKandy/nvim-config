@@ -10,8 +10,16 @@ vim.g.mapleader = " "
 -- Normal mode --
 -----------------
 
+vim.keymap.set("n", "<Leader>so", ":source %<CR>", { desc = "Open parent directory in float" })
+
 -- netrw
 -- vim.keymap.set('n', '<Leader>e', ':E <CR>', opts)
+
+
+-- oil
+-- vim.keymap.set("n", "<Leader>e", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<Leader>e", ":lua require('oil').toggle_float(nil)<CR>", { desc = "Open parent directory in float" })
+
 
 -- undotree
 vim.keymap.set('n', '<Leader>u', vim.cmd.UndotreeToggle)
@@ -70,3 +78,9 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
 -- Hint: start visual mode with the same area as the previous area and the same mode
 vim.keymap.set('v', '<', '<gv', opts)
 vim.keymap.set('v', '>', '>gv', opts)
+
+
+
+-----------------
+-- Insert mode --
+-----------------

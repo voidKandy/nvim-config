@@ -109,9 +109,8 @@ lsp_zero.new_client({
 
 
 lsp_zero.setup_servers({ 'tsserver', 'rust_analyzer', "cssls", "lua_ls", "html", "pylsp", "svelte", "gopls",
-    "espx-copilot"
+    "espx-copilot",
     -- "htmx",
-    -- "_hslsp"
 })
 
 

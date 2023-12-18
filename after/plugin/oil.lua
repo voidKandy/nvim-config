@@ -10,11 +10,13 @@ require("oil").setup({
         -- "size",
         -- "mtime",
     },
+
     -- Buffer-local options to use for oil buffers
     buf_options = {
         buflisted = false,
         bufhidden = "hide",
     },
+
     -- Window-local options to use for oil buffers
     win_options = {
         wrap = false,
@@ -26,6 +28,7 @@ require("oil").setup({
         conceallevel = 3,
         concealcursor = "nvic",
     },
+
     -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
     delete_to_trash = false,
     -- Skip the confirmation popup for simple operations
@@ -42,6 +45,7 @@ require("oil").setup({
     -- it will use the mapping at require("oil.actions").<name>
     -- Set to `false` to remove a keymap
     -- See :help oil-actions for a list of all available actions
+
     keymaps = {
         ["g?"] = "actions.show_help",
         ["<CR>"] = "actions.select",
@@ -60,8 +64,9 @@ require("oil").setup({
         ["g."] = "actions.toggle_hidden",
         ["g\\"] = "actions.toggle_trash",
     },
+
     -- Set to false to disable all of the above keymaps
-    use_default_keymaps = true,
+    use_default_keymaps = false,
     view_options = {
         -- Show files and directories that start with "."
         show_hidden = true,
@@ -80,22 +85,30 @@ require("oil").setup({
             { "name", "asc" },
         },
     },
+
     -- Configuration for the floating window in oil.open_float
     float = {
         -- Padding around the floating window
-        padding = 2,
+        padding = 5,
         max_width = 0,
         max_height = 0,
-        border = "rounded",
+        border = "solid",
         win_options = {
             winblend = 0,
         },
         -- This is the config that will be passed to nvim_open_win.
         -- Change values here to customize the layout
         override = function(conf)
+            -- conf.style = "minimal"
+            -- conf.anchor = "SW"
+            conf.width = 40
+            conf.height = 20
+            conf.row = 1
+            conf.col = vim.fn.winwidth(0)
             return conf
         end,
     },
+
     -- Configuration for the actions floating preview window
     preview = {
         -- Width dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
@@ -119,6 +132,7 @@ require("oil").setup({
             winblend = 0,
         },
     },
+
     -- Configuration for the floating progress window
     progress = {
         max_width = 0.9,
@@ -134,5 +148,3 @@ require("oil").setup({
         },
     },
 })
-
-vim.keymap.set("n", "<Leader>e", "<CMD>Oil<CR>", { desc = "Open parent directory" })

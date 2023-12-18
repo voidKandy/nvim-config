@@ -25,7 +25,6 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use { 'srcery-colors/srcery-vim', as = 'srcery', }
-
     -- :TransparentEnable
     -- :TransparentDisable
     -- :TransparentToggle

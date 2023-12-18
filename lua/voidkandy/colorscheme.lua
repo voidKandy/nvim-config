@@ -1,4 +1,3 @@
-
 -- define your colorscheme here
 local colorscheme = 'srcery'
 
